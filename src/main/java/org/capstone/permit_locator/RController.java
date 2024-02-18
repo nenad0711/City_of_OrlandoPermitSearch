@@ -14,12 +14,12 @@ public class RController {
     public Permit[] searchPermits() {
         RestTemplate template = new RestTemplate();
         String url  ="https://data.cityoforlando.net/resource/ryhf-m453.json?$limit=10";
-        Permit [] permitList = template.getForObject(url, Permit[].class);
-        //ResponseEntity<Permit[]> response = restTemplate.getForEntity(apiUrl, Permit[].class);
+        //Permit [] permitList = template.getForObject(url, Permit[].class);
+        ResponseEntity<Permit[]> response = template.getForEntity(url, Permit[].class);
+        Permit [] permits = response.getBody();
         //List<Permit> permitList = Arrays.asList(permits);
-        //System.out.println(response.getStatusCode());
-         // Permit [] permitsL = new Permit[]{template.getForObject(url,Permit.class)};
-        //Permit [] permits = response.getBody();
+        System.out.println(response.getStatusCode());
+
 
 /**
         if (permits != null && permits.length > 0) {
@@ -30,9 +30,9 @@ public class RController {
             return null;
         }**/
 
-        assert permitList != null;
+        assert permits != null;
         // Print each permit's details to the console
-        for (Permit permit : permitList) {
+        for (Permit permit : permits) {
             System.out.println("Permit ID: " +   permit.permit_number());
             System.out.println("Permit Application number: " + permit.application_type());
             System.out.println("Permit Owner Name: " + permit.property_owner_name());
@@ -41,7 +41,7 @@ public class RController {
             System.out.println("Permit Status: " + permit.application_status());
             System.out.println("------------------------------------------");
         }
-        return permitList;
+        return permits;
     }
 
 }

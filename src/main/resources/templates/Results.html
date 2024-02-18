@@ -17,6 +17,7 @@
     <tbody>
     <tr th:each="permits : ${permits}">
         <td th:text="${permits.permit_number()}"></td>
+        <td th:text="${permits.property_owner_name()}"></td>
         <td th:text="${permits.application_type()}"></td>
         <td th:text="${permits.permit_address()}"></td>
         <td><a th:href="@{/details/{id}(id=${permits.permit_number()})}">View Details</a></td>

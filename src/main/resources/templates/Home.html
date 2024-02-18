@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Permits Details</title>
 </head>
 <body>
 
+<h1>Permits Details</h1>
+
+<!-- Search Form -->
+<form th:action="@{/search}" method="get">
+   <!-- <label for="address">Permit Address:</label>
+    <input type="text" id="address" th:name="address">
+    <label for="ownerName">Property Owner Name:</label>
+    <input type="text" id="ownerName" th:name="ownerName">-->
+    <label for="dropdown">Permit Type:</label>
+    <select id="dropdown" name="dropdown" >
+        <option value="Alcohol Beverage License">Alcohol Beverage License</option>
+        <option value="Building Permit">Building Permit</option>
+        <option value="Electrical">Electrical</option>
+    </select>
+    <button type="submit">Search</button>
+</form>
 </body>
 </html>

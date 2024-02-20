@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Controller
 public class PermitController {
@@ -23,7 +24,49 @@ public class PermitController {
                                 @RequestParam(name = "ownerName") String ownerName,
                                 @RequestParam(name = "permitType") String permitType,
                                 Model model) {
+        log.info(address + " " + ownerName + " " + permitType);
 
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("https://data.cityoforlando.net/resource/ryhf-m453.json");
+
+        StringBuilder whereClause = new StringBuilder();
+
+        if (address != null && !address.isEmpty()) {
+            address = address.toUpperCase(); // Convert to uppercase here
+            whereClause.append("permit_address like '").append(address).append("%'");
+        }
+        if (ownerName != null && !ownerName.isEmpty()) {
+            ownerName = ownerName.toUpperCase(); // Convert to uppercase here
+            if (!whereClause.isEmpty()) {
+                whereClause.append(" AND ");
+            }
+            whereClause.append("property_owner_name like ' ").append(ownerName).append("%'");
+        }
+        if (permitType != null && !permitType.isEmpty()) {
+            if (!whereClause.isEmpty()) {
+                whereClause.append(" AND ");
+            }
+            whereClause.append("application_type = '").append(permitType).append("'");
+        }
+
+        if (!whereClause.isEmpty()) {
+            builder.queryParam("$where", whereClause.toString());
+        }
+
+        String apiUrl = builder.build().toUriString();
+        System.out.println(apiUrl);
+        // Retrieve permit data from the API based on the search parameters
+        RestTemplate template = new RestTemplate();
+        ResponseEntity<Permit[]> response = template.getForEntity(apiUrl, Permit[].class);
+        permits = response.getBody();
+        assert permits != null;
+
+        model.addAttribute("permits", permits);
+
+        // Return the template to display the search results
+        return "Results";
+
+
+/**
         log.info(address + " " + ownerName + " " + permitType);
         String apiUrl = "https://data.cityoforlando.net/resource/ryhf-m453.json?";
         boolean hasParameter = false;
@@ -56,7 +99,7 @@ public class PermitController {
         model.addAttribute("permits", permits);
 
         // Return the template to display the search results
-        return "Results";
+        return "Results";**/
     }
 
     @GetMapping("/details/{id}")

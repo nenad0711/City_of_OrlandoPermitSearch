@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Permit Details</title>
+</head>
+<body>
+<h1>Permit Details</h1>
+<div>
+    <p>Permit ID: <span th:text="${permit.permit_number()}"></span></p>
+    <p>Permit Address: <span th:text="${permit.permit_address()}"></span></p>
+    <p>Application Type: <span th:text="${permit.application_type()}"></span></p>
+    <p>Permit Value: <span th:text="${permit.application_status()}"></span></p>
+</div>
+</body>
+</html>

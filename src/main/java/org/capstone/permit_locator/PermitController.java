@@ -24,7 +24,7 @@ public class PermitController {
                                 @RequestParam(name = "ownerName") String ownerName,
                                 @RequestParam(name = "permitType") String permitType,
                                 Model model) {
-        log.info(address + " " + ownerName + " " + permitType);
+        log.info(address+ownerName+permitType);
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("https://data.cityoforlando.net/resource/ryhf-m453.json");
 
@@ -32,14 +32,14 @@ public class PermitController {
 
         if (address != null && !address.isEmpty()) {
             address = address.toUpperCase(); // Convert to uppercase here
-            whereClause.append("permit_address like '").append(address).append("%'");
+            whereClause.append("permit_address like '").append(address).append("%'"); // Address starts with the input text
         }
         if (ownerName != null && !ownerName.isEmpty()) {
             ownerName = ownerName.toUpperCase(); // Convert to uppercase here
             if (!whereClause.isEmpty()) {
                 whereClause.append(" AND ");
             }
-            whereClause.append("property_owner_name like ' ").append(ownerName).append("%'");
+            whereClause.append("property_owner_name like ' ").append(ownerName).append("%'"); // Name starts with the input text
         }
         if (permitType != null && !permitType.isEmpty()) {
             if (!whereClause.isEmpty()) {
@@ -52,19 +52,42 @@ public class PermitController {
             builder.queryParam("$where", whereClause.toString());
         }
 
-        String apiUrl = builder.build().toUriString();
+        String apiUrl = builder.build().toUriString(); // final URI
         System.out.println(apiUrl);
         // Retrieve permit data from the API based on the search parameters
         RestTemplate template = new RestTemplate();
         ResponseEntity<Permit[]> response = template.getForEntity(apiUrl, Permit[].class);
         permits = response.getBody();
         assert permits != null;
-
         model.addAttribute("permits", permits);
-
         // Return the template to display the search results
         return "Results";
+    }
+    /**
+     * Get Endpoint that takes Permit ID from the Results.html page and provides permit details on the Additional_Info.html page
+     * @param id Permit Id
+     * @return Thymeleaf template Additional Info
+     */
+    @GetMapping("/details/{id}")
+    public String getPermitDetails(@PathVariable String id, Model model) {
+        Permit permit = retrievePermitDetails(id);
+        model.addAttribute("permit", permit);
+        return "Additional_Info";
+    }
 
+    /**
+     *  Method to search through array of Permit objects
+     * @param id Permit Id
+     * @return Permit object
+     */
+    public Permit retrievePermitDetails(String id) {
+        for (Permit perm : permits)
+            if (perm.permit_number().equals(id)) {
+                return perm;
+            }
+        return null;
+    }
+}
 
 /**
         log.info(address + " " + ownerName + " " + permitType);
@@ -100,42 +123,8 @@ public class PermitController {
 
         // Return the template to display the search results
         return "Results";**/
-    }
 
-    @GetMapping("/details/{id}")
-    public String getPermitDetails(@PathVariable String id, Model model) {
-        Permit permit = retrievePermitDetails(id);
-        model.addAttribute("permit", permit);
-        return "Additional_Info";
-    }
 
-    public Permit retrievePermitDetails(String id) {
 
-        for (Permit perm : permits)
-            if (perm.permit_number().equals(id)) {
-                return perm;
-            }
-        return null;
-    }
-}
-/**
- public Permit[] searchPermits() {
- RestTemplate template = new RestTemplate();
- String url  ="https://data.cityoforlando.net/resource/ryhf-m453.json?$limit=10";
- ResponseEntity<Permit[]> response = template.getForEntity(url, Permit[].class);
- Permit [] permits = response.getBody();
- assert permits != null;
- return permits;
- Permit [] permitList = template.getForObject(url, Permit[].class);
- for (Permit permit : permitList) {
- System.out.println("Permit ID: " +   permit.permit_number());
- System.out.println("Permit Application number: " + permit.application_type());
- System.out.println("Permit Owner Name: " + permit.property_owner_name());
- System.out.println("Permit Address: " + permit.permit_address());
- System.out.println("Permit Worktype: " + permit.worktype());
- System.out.println("Permit Status: " + permit.application_status());
- System.out.println("------------------------------------------");
- }
- return permitList;
- }**/
+
 

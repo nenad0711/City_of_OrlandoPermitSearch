@@ -58,8 +58,13 @@ public class PermitController {
         RestTemplate template = new RestTemplate();
         ResponseEntity<Permit[]> response = template.getForEntity(apiUrl, Permit[].class);
         permits = response.getBody();
-        assert permits != null;
-        model.addAttribute("permits", permits);
+        //assert permits != null;
+        if (permits == null || permits.length == 0) {
+            model.addAttribute("noPermitsMessage", "No permits found with given criteria.");
+        } else {
+            model.addAttribute("permits", permits);
+        }
+
         // Return the template to display the search results
         return "Results";
     }

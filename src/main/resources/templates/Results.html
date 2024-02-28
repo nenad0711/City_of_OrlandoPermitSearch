@@ -6,7 +6,10 @@
 </head>
 <body>
 <h1>Permits Details</h1>
-<table>
+<div th:if="${noPermitsMessage}">
+    <p th:text="${noPermitsMessage}"></p>
+</div>
+<table th:if="${permits}">
     <thead>
     <tr>
         <th>Permit ID</th>

@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: [aws-ec2]
+    runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -24,7 +24,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest # Use GitHub-hosted runner or set up a self-hosted runner
+    runs-on: aws-ec2
     steps:
       - name: Pull Image from Docker Hub
         run: docker pull nicvalencia/city-orlando-permit:latest

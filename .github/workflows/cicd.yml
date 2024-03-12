@@ -29,8 +29,6 @@ jobs:
       - name: Pull Image from Docker Hub
         run: docker pull nicvalencia/city-orlando-permit:latest
       - name: Remove Old Container
-        run: docker rm -f city-orlando-permit-container
+        run: docker rm -f city-orlando-permit-container || true
       - name: Run Docker Container
-        run: docker run -d -p 8080:8080 --name city-orlando-permit-container nicvalencia/city-orlando-permit:latest
-
-
+        run: docker run -d -p 8080:8080 --name city-orlando-permit-container nicvalencia/city-orlando-permit

@@ -2,7 +2,24 @@ package org.capstone.permit_locator.Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.awt.*;
+/**
+ * A record representing a permit for various applications.
+ *
+ * @author [Nenad Jovanovic]
+ * @version 1.0
+ */
 
+
+/**
+ * Constructs a new Permit with the specified details.
+ *
+ * @param permit_number       The permit number.
+ * @param application_type    The type of application.
+ * @param property_owner_name The name of the property owner.
+ * @param permit_address      The address associated with the permit.
+ * @param worktype            The type of work.
+ * @param application_status  The status of the application.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Permit(String permit_number, String application_type, String property_owner_name, String permit_address, String worktype, String application_status) {
 

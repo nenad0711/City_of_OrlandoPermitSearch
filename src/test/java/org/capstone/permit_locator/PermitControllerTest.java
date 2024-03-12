@@ -1,5 +1,11 @@
 package org.capstone.permit_locator;
-
+/**
+ * This class contains test cases for PermitController functionality.
+ * It uses Mockito for mocking dependencies.
+ *
+ * @author [Nenad Jovanovic]
+ * @version 1.0
+ */
 import org.capstone.permit_locator.Model.Permit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,13 +39,20 @@ public class PermitControllerTest {
     private String ownerName;
     private String permitType;
 
+    /**
+     * Set up method executed before each test case.
+     * Initializes test data.
+     */
     @BeforeEach
     void setUp() {
         address = "pine";
         ownerName = "W. ROGER SMITH";
         permitType = "";
     }
-// test if returnBody is not null and matches the max array length given by the limit filter
+    /**
+     * Test case to verify that permits retrieved are not null
+     * and match the expected maximum array length.
+     */
     @Test
     void testPermitNotNull(){
         String apiUrl = "https://data.cityoforlando.net/resource/ryhf-m453.json?$limit=5";
@@ -50,7 +63,9 @@ public class PermitControllerTest {
         assertEquals(5,testPer.length);
         System.out.println("Number of permits retrieved (1000 max per page): " + testPer.length);
     }
-// does Permit object match?
+     /**
+     * Test case to verify if the searched permits match the expected permits.
+     */
     @Test
     void testSearchPermits() {
         Permit[] permits = {new Permit("SBF26103-0", "Sewer Benefit Fees", " W. ROGER SMITH", "PINE STREET & 11TH AVENUE", "SF", "Open")}; // Provide sample permits

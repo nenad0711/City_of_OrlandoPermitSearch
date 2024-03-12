@@ -3,83 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <title>Permit Search </title>
-    
+    <style>
+        body {
+            font-family: Aptos, sans-serif;
+            background-image: url('https://www.livewonderful.com/wp-content/uploads/2021/01/Buildings-photography-scenery-photoshoot-Orlando-Photographer-live-wonderful-1024x424.jpg'); /* Path to your Orlando city map image */
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: rgba(217, 211, 211, 0.95); /* Add transparency to make form readable */
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333333;
+        }
+
+        input[type="text"],
+        select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        select {
+            width: 100%;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color: #1e1e21;
+        }
+    </style>
 </head>
+<body>
+<div class="form-container">
+    <h1>Enter your Permit Details</h1>
+    <form th:action="@{/search}" method="get">
 
-
-<h1> Enter your Permit Details</h1>
-
-<form th:action="@{/search}" method="get">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Permit Search</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                text-align: center;
-                padding-top: 50px;
-            }
-            .form-container {
-                width: 400px;
-                margin: 0 auto;
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
-            .form-group {
-                margin-bottom: 20px;
-                text-align: left;
-            }
-            .form-group label {
-                display: block;
-                margin-bottom: 5px;
-                font-weight: bold;
-            }
-            .form-group input[type="text"],
-            .form-group select {
-                width: 100%;
-                padding: 8px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-            }
-            .btn-primary {
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-                border-radius: 4px;
-                padding: 10px 20px;
-                cursor: pointer;
-            }
-        </style>
-    </head>
-    <body>
-
-
-    <div class="form-container">
-        <form action="#">
-            <div class="form-group">
-                <label for="address">Permit Address:</label>
-                <input type="text" id="address" name="address">
-            </div>
-            <div class="form-group">
-                <label for="ownerName">Property Owner Name:</label>
-                <input type="text" id="ownerName" name="ownerName">
-            </div>
-            <div class="form-group">
-                <label for="dropdown">Permit Type:</label>
-                <select id="dropdown" name="permitType">
-                    <option value=""></option>
-                    <option value="Alcohol Beverage License">Alcohol Beverage License</option>
-                    <option value="Building Permit">Building Permit</option>
-                    <option value="Electrical">Electrical</option>
-                </select>
-            </div>
-            <button type="submit" class="btn-primary">Search</button>
-        </form>
-    </div>
-    </body>
-</form>
+        <div class="form-group">
+            <label for="ownerName">Property Owner Name:</label>
+            <input type="text" id="ownerName" name="ownerName" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Permit Address:</label>
+            <input type="text" id="address" name="address" >
+        </div>
+        <div class="form-group">
+            <label for="dropdown">Permit Type:</label>
+            <select id="dropdown" name="permitType">
+                <option value=""></option>
+                <option value="Alcohol Beverage License">Alcohol Beverage License</option>
+                <option value="Building Permit">Building Permit</option>
+                <option value="Electrical">Electrical</option>
+            </select>
+        </div>
+        <button type="submit">Search</button>
+    </form>
+</div>
+</body>
 </html>

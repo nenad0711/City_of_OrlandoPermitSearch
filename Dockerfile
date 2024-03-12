@@ -4,4 +4,4 @@ COPY target/Permit_Locator-0.0.1-SNAPSHOT.jar Permit_Locator-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
 
 CMD ["java", "-jar", "Permit_Locator-0.0.1-SNAPSHOT.jar"]
-LABEL authors="nicandrade"
+LABEL authors="nandrade"

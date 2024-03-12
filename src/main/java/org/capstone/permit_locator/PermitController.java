@@ -108,7 +108,7 @@ public class PermitController {
                 log.error("Unexpected HTTP status code: " + response.getStatusCodeValue());
                 model.addAttribute("errorCode", response.getStatusCodeValue());
                 // You may redirect to an error page or show an appropriate message to the user
-                return "Error Page";
+                return "ErrorPage";
             }
         }
         catch (HttpClientErrorException | HttpServerErrorException e) {

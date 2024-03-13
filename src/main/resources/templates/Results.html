@@ -2,22 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
     <meta charset="UTF-8">
-    <title>Permits Details</title>
+    <title>Results</title>
     <style>
         body {
-            font-family: Aptos, sans-serif;
+            font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+            margin: 50px;
+            padding: 50px;
+            display: flex;
+            justify-content: space-between;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 20px auto;
+            width: 60%;
+            margin: 20px;
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
         }
 
         h1 {
@@ -25,21 +29,39 @@
             margin-bottom: 20px;
         }
 
+        .table-wrapper {
+            max-height: 400px; /* Adjust height as needed */
+            overflow: auto;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
         }
 
         th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            padding: 8px;
             text-align: left;
         }
 
         th {
             background-color: #f2f2f2;
-            cursor: pointer;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            border-top: none;
+        }
+
+        td:first-child,
+        th:first-child {
+            border-left: none;
+        }
+
+        td:last-child,
+        th:last-child {
+            border-right: none;
         }
 
         tr:nth-child(even) {
@@ -59,6 +81,19 @@
             text-decoration: underline;
         }
 
+        .image-placeholder {
+            width: 35%;
+            margin: 20px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-placeholder img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
         .no-permits-message {
             text-align: center;
             margin-top: 20px;
@@ -67,31 +102,36 @@
 </head>
 <body>
 <div class="container">
-    <h1>Results</h1>
+    <h1 th:text="'Total Permits Found: ' + ${permitCount}"></h1>
     <div th:if="${noPermitsMessage}" class="no-permits-message">
         <p th:text="${noPermitsMessage}"></p>
     </div>
-    <table id="permitsTable" th:if="${permits}">
-        <thead>
-        <tr>
-            <th>Permit ID</th>
-            <th>Permit Address</th>
-            <th>Owner Name</th>
-            <th>Application Type</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="permit : ${permits}">
-            <td th:text="${permit.permit_number}"></td>
-            <td th:text="${permit.permit_address}"></td>
-            <td th:text="${permit.property_owner_name}"></td>
-            <td th:text="${permit.application_type}"></td>
-            <td><a th:href="@{/details/{id}(id=${permit.permit_number})}">View Details</a></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-wrapper">
+        <table th:if="${permits}">
+            <thead>
+            <tr>
+                <th>Permit ID</th>
+                <th>Permit Address</th>
+                <th>Owner Name</th>
+                <th>Application Type</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="permit : ${permits}">
+                <td th:text="${permit.permit_number}"></td>
+                <td th:text="${permit.permit_address}"></td>
+                <td th:text="${permit.property_owner_name}"></td>
+                <td th:text="${permit.application_type}"></td>
+                <td><a th:href="@{/details/{id}(id=${permit.permit_number})}">View Details</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+<div class="image-placeholder">
+    <img th:attr="src='https://maps.googleapis.com/maps/api/staticmap?center=Orlando,FL&zoom=10&size=400x400&markers=color:blue%7C' + ${googleMap} + '&key='" alt="Image Placeholder">
 
+</div>
 </body>
 </html>

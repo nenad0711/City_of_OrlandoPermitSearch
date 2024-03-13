@@ -97,11 +97,15 @@ public class PermitController {
                 if (permits == null || permits.length == 0) {
                     model.addAttribute("noPermitsMessage", "No permits found with given criteria.");
                 } else {
+                    model.addAttribute("permitCount",permits.length);
+                    model.addAttribute("googleMap",googleMapping());
                     model.addAttribute("permits", permits);
                 }
 
                 // Return the template to display the search results
+                System.out.print(googleMapping());
                 return "Results";
+
             }
             else {
                 // Handle unexpected HTTP status code
@@ -151,9 +155,28 @@ public class PermitController {
             }
         return null;
     }
+    public String googleMapping() {
+        StringBuilder permitAddressesBuilder = new StringBuilder();
+        String previousAddress = "";
+
+        for (Permit permit : permits) {
+            String currentAddress = permit.permit_address().replace(" ", "+"); // Replace spaces with '+'
+            if (!currentAddress.equals(previousAddress)) {
+                permitAddressesBuilder.append(currentAddress).append(",Orlando,FL|");
+                previousAddress = currentAddress;
+            }
+        }
+
+        // Remove the trailing '|'
+        if (permitAddressesBuilder.length() > 0) {
+            permitAddressesBuilder.deleteCharAt(permitAddressesBuilder.length() - 1);
+        }
+
+        return permitAddressesBuilder.toString();
+    }
 }
 
-
+//804+W+YALE+ST,Orlando,FL|+Lake+Buena+Vista,Orlando,FL|+6538+Chagford+Lane,Orlando,F
 
 
 

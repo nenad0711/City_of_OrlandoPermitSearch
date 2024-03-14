@@ -20,6 +20,7 @@ public class PermitController {
      * An array containing permit information.
      */
     public Permit[] permits;
+    int uniqueAddressCount=0;
     /**
      * Logger instance for logging permit search information.
      */
@@ -49,6 +50,7 @@ public class PermitController {
                                 @RequestParam(name = "ownerName") String ownerName,
                                 @RequestParam(name = "permitType") String permitType,
                                 Model model) {
+        uniqueAddressCount = 0;
         log.info(address+ownerName+permitType);
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("https://data.cityoforlando.net/resource/ryhf-m453.json");
@@ -99,6 +101,7 @@ public class PermitController {
                 } else {
                     model.addAttribute("permitCount",permits.length);
                     model.addAttribute("googleMap",googleMapping());
+                    model.addAttribute("addressCount",uniqueAddressCount);
                     model.addAttribute("permits", permits);
                 }
 
@@ -158,12 +161,23 @@ public class PermitController {
     public String googleMapping() {
         StringBuilder permitAddressesBuilder = new StringBuilder();
         String previousAddress = "";
-
+        int addressCount = 0;
+        for (Permit permit : permits) {
+            String currentAddress = permit.permit_address().replace(" ", "+"); // Replace spaces with '+'
+            if (!currentAddress.equals(previousAddress)) {
+                uniqueAddressCount++;
+                previousAddress = currentAddress;
+            }
+        }
         for (Permit permit : permits) {
             String currentAddress = permit.permit_address().replace(" ", "+"); // Replace spaces with '+'
             if (!currentAddress.equals(previousAddress)) {
                 permitAddressesBuilder.append(currentAddress).append(",Orlando,FL|");
                 previousAddress = currentAddress;
+                addressCount ++;
+            }
+            if (addressCount >= 5) {
+                break; // Stop after appending the first 5 unique addresses
             }
         }
 
@@ -175,9 +189,6 @@ public class PermitController {
         return permitAddressesBuilder.toString();
     }
 }
-
-//804+W+YALE+ST,Orlando,FL|+Lake+Buena+Vista,Orlando,FL|+6538+Chagford+Lane,Orlando,F
-
 
 
 

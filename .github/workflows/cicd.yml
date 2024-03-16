@@ -31,4 +31,4 @@ jobs:
       - name: Remove Old Container
         run: docker rm -f city-orlando-permit-container || true
       - name: Run Docker Container
-        run: docker run -d -p 8080:8080 --name city-orlando-permit-container nicvalencia/city-orlando-permit
+        run: docker run -d -p 8080:8080 --restart unless-stopped --name city-orlando-permit-container nicvalencia/city-orlando-permit

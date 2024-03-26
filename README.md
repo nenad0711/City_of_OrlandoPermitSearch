@@ -28,3 +28,6 @@ Use the navigation links provided to explore different sections of the applicati
 If you encounter any issues or have any questions or suggestions, please open an issue on GitHub. We appreciate your feedback!
 
 Thank you for using the Permit Search Web Application!
+
+# Releases
+3/25/24 - Beta Version

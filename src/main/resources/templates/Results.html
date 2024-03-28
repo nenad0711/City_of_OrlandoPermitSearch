@@ -101,7 +101,6 @@
             .container {
                 width: 100%; /* Make container full width on smaller screens */
             }
-
             .image-placeholder {
                 width: 100%;
             }
@@ -110,9 +109,11 @@
 </head>
 <body>
 <div class="container">
+    <div th:if="${permitCount}" >
     <h1 th:text="'Total Permits Found: ' + ${permitCount} + ' at '+ ${addressCount} + ' locations'"></h1>
+        </div>
     <div th:if="${noPermitsMessage}" class="no-permits-message">
-        <p th:text="${noPermitsMessage}"></p>
+        <h1 th:text="${noPermitsMessage}"></h1>
     </div>
     <div class="table-wrapper">
         <table th:if="${permits}">
@@ -137,9 +138,8 @@
         </table>
     </div>
 </div>
-<div class="image-placeholder">
-    <img th:attr="src='https://maps.googleapis.com/maps/api/staticmap?center=Orlando,FL&zoom=11&size=400x400&markers=color:red%7Csize:mid%7C' + ${googleMap} + '&key='" alt="Image Placeholder">
-
+<div th:if="${permits}" class="image-placeholder">
+    <img th:attr="src='https://maps.googleapis.com/maps/api/staticmap?center=Orlando,FL&zoom=11&size=400x400&markers=color:red%7Csize:mid%7C' + ${googleMap} + '&key='">
 </div>
 </body>
 </html>

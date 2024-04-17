@@ -13,11 +13,11 @@
         <img src="/images/cityoforlando_horizontal_logo_official.png" class="logo-image">
         <h1>Permit Search</h1>
     </div>
-    <form th:action="@{/search}" method="get">
+    <form th:action="@{/search}" method="get" onsubmit="return validateForm()">
 
         <div class="form-group">
             <label for="ownerName">Property Owner Name</label>
-            <input type="text" id="ownerName" name="ownerName" required>
+            <input type="text" id="ownerName" name="ownerName">
         </div>
         <div class="form-group">
             <label for="address">Property Address</label>

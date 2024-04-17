@@ -18,12 +18,13 @@
             <div class="results-applicant"><h2 th:text="${permit.property_owner_name}"></h2></div>
             <div class="results-permit-number" th:text="${permit.permit_number}"></div>
             <div class="results-address" th:text="${permit.permit_address}"></div>
+            <div class="results-category" th:if="!${category}" th:text="${permit.application_type()}"></div>
             <a class="results-button" th:href="@{/details/{id}(id=${permit.permit_number})}">></a>
         </div>
     </div>
     <div class="footer-grid">
         <img src="/images/cityoforlando_horizontal_logo_official.png" class="footer-logo-image">
-        <p style="margin: 8px;">Need help? Visit www.###.com
+        <p style="margin: 10px;">Need help? Visit www.###.com
             <br>
             or call ###-###-####</p>
     </div>

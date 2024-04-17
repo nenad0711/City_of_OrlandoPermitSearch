@@ -103,6 +103,7 @@ public class PermitController {
                     model.addAttribute("googleMap",googleMapping());
                     model.addAttribute("addressCount",uniqueAddressCount);
                     model.addAttribute("permits", permits);
+                    model.addAttribute("category", permitType);
                 }
 
                 // Return the template to display the search results

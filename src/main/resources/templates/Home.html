@@ -41,3 +41,15 @@
 </div>
 </body>
 </html>
+<script>
+    function validateForm() {
+        var address = document.getElementById("address").value;
+        var permitOwner = document.getElementById("ownerName").value;
+
+        if (!address && !permitOwner) {
+            alert("Please enter either Permit Owner Name or Permit Address.");
+            return false;
+        }
+        return true;
+    }
+</script>

@@ -12,13 +12,14 @@
     <div class="results-title">
         <h1>Results</h1>
         <h2 th:text="${category}"></h2>
+        <a class="exit-button" th:href="@{/}">X</a>
     </div>
     <div class="table-wrapper" th:if="${permits}">
         <div class="results-grid" th:each="permit : ${permits}">
             <div class="results-applicant"><h2 th:text="${permit.property_owner_name}"></h2></div>
             <div class="results-permit-number" th:text="${permit.permit_number}"></div>
             <div class="results-address" th:text="${permit.permit_address}"></div>
-            <div class="results-category" th:if="!${category}" th:text="${permit.application_type()}"></div>
+            <div class="results-category" th:text="${category == null} ? ${permit.application_type}"></div>
             <a class="results-button" th:href="@{/details/{id}(id=${permit.permit_number})}">></a>
         </div>
     </div>

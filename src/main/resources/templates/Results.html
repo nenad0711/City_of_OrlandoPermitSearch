@@ -3,143 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Results</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin-top:7%;
-            padding: 2%;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .container {
-            width: 60%;
-            margin: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            position: relative;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .table-wrapper {
-            max-height: 400px; /* Adjust height as needed */
-            overflow: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border-left: 1px solid #ddd;
-            border-right: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-            position: sticky;
-            top: 0;
-            z-index: 1;
-            border-top: none;
-        }
-        td:first-child,
-        th:first-child {
-            border-left: none;
-        }
-
-        td:last-child,
-        th:last-child {
-            border-right: none;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tr:hover {
-            background-color: #f2f2f2;
-        }
-
-        a {
-            text-decoration: none;
-            color: #007bff;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .image-placeholder {
-            width: 35%;
-            margin: 20px;
-            background-color: #f4f4f4;
-        }
-
-        .image-placeholder img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Ensure image maintains aspect ratio */
-            border-radius: 10px;
-        }
-
-        .no-permits-message {
-            text-align: center;
-            margin-top: 20px;
-        }
-        @media screen and (max-width: 768px) {
-            .container {
-                width: 100%; /* Make container full width on smaller screens */
-            }
-            .image-placeholder {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link th:href="@{/styles/main.css}" rel="stylesheet" />
 </head>
-<body>
-<div class="container">
-    <div th:if="${permitCount}" >
-    <h1 th:text="'Total Permits Found: ' + ${permitCount} + ' at '+ ${addressCount} + ' locations'"></h1>
+<body class="results-page-offset results-page-background">
+<div class="form-container">
+    <div class="results-title">
+        <h1>Results</h1>
+        <h2 th:text="${category}"></h2>
+    </div>
+    <div class="table-wrapper" th:if="${permits}">
+        <div class="results-grid" th:each="permit : ${permits}">
+            <div class="results-applicant"><h2 th:text="${permit.property_owner_name}"></h2></div>
+            <div class="results-permit-number" th:text="${permit.permit_number}"></div>
+            <div class="results-address" th:text="${permit.permit_address}"></div>
+            <a class="results-button" th:href="@{/details/{id}(id=${permit.permit_number})}">></a>
         </div>
-    <div th:if="${noPermitsMessage}" class="no-permits-message">
-        <h1 th:text="${noPermitsMessage}"></h1>
     </div>
-    <div class="table-wrapper">
-        <table th:if="${permits}">
-            <thead>
-            <tr>
-                <th>Permit ID</th>
-                <th>Permit Address</th>
-                <th>Owner Name</th>
-                <th>Application Type</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="permit : ${permits}">
-                <td th:text="${permit.permit_number}"></td>
-                <td th:text="${permit.permit_address}"></td>
-                <td th:text="${permit.property_owner_name}"></td>
-                <td th:text="${permit.application_type}"></td>
-                <td><a th:href="@{/details/{id}(id=${permit.permit_number})}">View Details</a></td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="footer-grid">
+        <img src="/images/cityoforlando_horizontal_logo_official.png" class="footer-logo-image">
+        <p style="margin: 8px;">Need help? Visit www.###.com
+            <br>
+            or call ###-###-####</p>
     </div>
-</div>
-<div th:if="${permits}" class="image-placeholder">
-    <img th:attr="src='https://maps.googleapis.com/maps/api/staticmap?center=Orlando,FL&zoom=11&size=400x400&markers=color:red%7Csize:mid%7C' + ${googleMap} + '&key='">
+
 </div>
 </body>
 </html>

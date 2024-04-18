@@ -144,6 +144,7 @@ public class PermitController {
     public String getPermitDetails(@PathVariable String id, Model model) {
         Permit permit = retrievePermitDetails(id);
         model.addAttribute("permit", permit);
+        model.addAttribute("googleMapAddress", getSingleMapAddress(permit.permit_address()));
         return "Additional_Info";
     }
 
@@ -188,6 +189,13 @@ public class PermitController {
         }
 
         return permitAddressesBuilder.toString();
+    }
+
+    public String getSingleMapAddress(String permitAddress) {
+        StringBuilder permitAddressBuilder = new StringBuilder();
+        permitAddress = permitAddress.replace(" ", "+");
+        permitAddressBuilder.append(permitAddress).append(",Orlando,FL");
+        return permitAddressBuilder.toString();
     }
 }
 

@@ -7,15 +7,25 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link th:href="@{/styles/main.css}" rel="stylesheet" />
 </head>
-<body>
-<div class="card">
-    <h1>Permit Details</h1>
-    <div class="permit-info">
-        <p>Permit ID: <span th:text="${permit.permit_number()}"></span></p>
-        <p>Permit Address: <span th:text="${permit.permit_address()}"></span></p>
-        <p>Application Type: <span th:text="${permit.application_type()}"></span></p>
-        <p>Permit Value: <span th:text="${permit.application_status()}"></span></p>
-        <p>Permit Worktype: <span th:text="${permit.worktype()}"></span></p>
+<body class="main-page-background main-page-centering">
+<div class="form-container" style="width: 80%;">
+    <div class="additional-info-grid">
+        <div class="permit-info">
+            <h1>Permit #<span th:text="${permit.permit_number()}"></span></h1>
+            <h2 th:text="${permit.property_owner_name}"></h2>
+            <h2 th:text="${permit.permit_address()}"></h2>
+            <h3>Application Type: <span th:text="${permit.application_type()}">Building Permit</span></h3>
+            <p>Permit Worktype: <span th:text="${permit.worktype()}">Alteration</span></p>
+            <p>Permit Status: <span th:text="${permit.application_status()}">Closed</span></p>
+        </div>
+        <iframe
+                width="450"
+                height="250"
+                frameborder="0" style="border:0"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed/v1/MAP_MODE?key=AIzaSyAgCBSIoqZPe72YxIc_Moezmtt6KxBuTu0&q=googleMapAddress"
+                allowfullscreen>
+        </iframe>
     </div>
 </div>
 </body>

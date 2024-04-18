@@ -68,7 +68,7 @@ public class PermitControllerTest {
      */
     @Test
     void testSearchPermits() {
-        Permit[] permits = {new Permit("SBF26103-0", "Sewer Benefit Fees", " W. ROGER SMITH", "PINE STREET & 11TH AVENUE", "SF", "Open")}; // Provide sample permits
+        Permit[] permits = {new Permit("SBF26103-0", "Sewer Benefit Fees", " W. ROGER SMITH", "PINE STREET & 11TH AVENUE", "SF", "Open", "WILLIAM OR LOUNETTE ROUGHTON", "36050", "2010-01-21T00:00:00.000")}; // Provide sample permits
         //when(responseEntity.getBody()).thenReturn(permits);
 
         String result = permitController.searchPermits(address, ownerName, permitType, model);

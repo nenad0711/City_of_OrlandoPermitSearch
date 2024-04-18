@@ -183,6 +183,11 @@ h2 {
     font-family: Inter, sans-serif;
 }
 
+.additional-info-grid {
+    display: grid;
+    grid-template-columns: 3fr 1.5fr;
+}
+
 .table-wrapper {
     height: 60vh; /* Adjust height as needed */
     overflow: auto;

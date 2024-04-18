@@ -17,10 +17,15 @@
             <h3>Application Type: <span th:text="${permit.application_type()}">Building Permit</span></h3>
             <p>Permit Worktype: <span th:text="${permit.worktype()}">Alteration</span></p>
             <p>Permit Status: <span th:text="${permit.application_status()}">Closed</span></p>
+            <br><br>
+            <h1>Additional Info</h1>
+            <p th:if="${permit.project_name() != ''}">Project Name: <span th:text="${permit.project_name()}"></span></p>
+            <p th:if="${permit.estimated_cost() != ''}">Estimated Cost: <span th:text="${permit.estimated_cost()}"></span></p>
+            <p th:if="${permit.processed_date() != ''}">Processed Date: <span th:text="${permit.processed_date()}"></span></p>
         </div>
         <iframe
-                width="450"
-                height="250"
+                width="600px"
+                height="600px"
                 frameborder="0" style="border:0"
                 th:attr="src='https://www.google.com/maps/embed/v1/place?key=AIzaSyAgCBSIoqZPe72YxIc_Moezmtt6KxBuTu0&q=' + ${googleMapAddress}"
                 allowfullscreen>

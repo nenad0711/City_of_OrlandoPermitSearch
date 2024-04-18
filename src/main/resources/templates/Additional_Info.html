@@ -19,9 +19,9 @@
             <p>Permit Status: <span th:text="${permit.application_status()}">Closed</span></p>
             <br><br>
             <h1>Additional Info</h1>
-            <p th:if="${permit.project_name() != ''}">Project Name: <span th:text="${permit.project_name()}"></span></p>
-            <p th:if="${permit.estimated_cost() != ''}">Estimated Cost: <span th:text="${permit.estimated_cost()}"></span></p>
-            <p th:if="${permit.processed_date() != ''}">Processed Date: <span th:text="${permit.processed_date()}"></span></p>
+            <p th:if="${permit.project_name() != null}">Project Name: <span th:text="${permit.project_name()}"></span></p>
+            <p th:if="${permit.estimated_cost() != null}">Estimated Cost: <span th:text="${permit.estimated_cost()}"></span></p>
+            <p th:if="${permit.processed_date() != null}">Processed Date: <span th:text="${permit.processed_date()}"></span></p>
         </div>
         <iframe
                 width="600px"

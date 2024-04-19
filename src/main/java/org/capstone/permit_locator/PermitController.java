@@ -98,6 +98,7 @@ public class PermitController {
                 permits = response.getBody();
                 if (permits == null || permits.length == 0) {
                     model.addAttribute("noPermitsMessage", "No permits found with given criteria.");
+                    return "Home";
                 } else {
                     model.addAttribute("permitCount",permits.length);
                     model.addAttribute("googleMap",googleMapping());

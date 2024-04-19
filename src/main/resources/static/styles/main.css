@@ -189,7 +189,7 @@ h2 {
     grid-template-columns: 2fr 1.5fr;
     grid-template-areas:
         "title title"
-        "details map"
+        "details map";
 }
 
 .additional-info-title {

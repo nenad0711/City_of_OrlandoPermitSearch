@@ -176,17 +176,10 @@ h2 {
     right: 40px;
 }
 
-.footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 3fr;
-    column-gap: 20px;
-    font-family: Inter, sans-serif;
-}
-
-
 .additional-info-grid {
     display: grid;
     grid-template-columns: 2fr 1.5fr;
+    grid-row-gap: 2rem;
     grid-template-areas:
         "title title"
         "details map";
@@ -196,6 +189,12 @@ h2 {
     grid-area: title;
 }
 
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    column-gap: 20px;
+    font-family: Inter, sans-serif;
+}
 .table-wrapper {
     height: 60vh; /* Adjust height as needed */
     overflow: auto;

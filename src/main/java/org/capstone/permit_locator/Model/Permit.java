@@ -43,7 +43,6 @@ public record Permit(String permit_number,
                      String final_date,
                      String contractor,
                      String contractor_name,
-
                      String contractor_address,
                      String contractor_phone_number
 

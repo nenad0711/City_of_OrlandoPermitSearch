@@ -22,6 +22,12 @@ import java.awt.*;
  * @param project_name        The name of the project
  * @param estimated_cost      The estimated cost of the project
  * @param processed_date      The date the application was processed
+ * @param issue_permit_date   The date the permit was issued
+ * @param final_date          The final date of processing
+ * @param contractor          Contractor working
+ * @param contractor_name     Contractor name
+ * @param contractor_address  Contractor's address
+ * @param contractor_phone_number Contractor's phone number
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Permit(String permit_number,
@@ -32,7 +38,15 @@ public record Permit(String permit_number,
                      String application_status,
                      String project_name,
                      String estimated_cost,
-                     String processed_date
-                     ) {
+                     String processed_date,
+                     String issue_permit_date,
+                     String final_date,
+                     String contractor,
+                     String contractor_name,
+
+                     String contractor_address,
+                     String contractor_phone_number
+
+) {
 
 }

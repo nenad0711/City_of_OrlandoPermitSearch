@@ -183,9 +183,17 @@ h2 {
     font-family: Inter, sans-serif;
 }
 
+
 .additional-info-grid {
     display: grid;
     grid-template-columns: 2fr 1.5fr;
+    grid-template-areas:
+        "title title"
+        "details map"
+}
+
+.additional-info-title {
+    grid-area: title;
 }
 
 .table-wrapper {

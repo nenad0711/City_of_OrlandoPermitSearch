@@ -9,9 +9,9 @@
 </head>
 <body class="main-page-background main-page-centering">
 <div class="form-container" style="width:80%;height:80vh;">
-    <div class="additional-info-grid">
+    <div class="additional-info-grid" style="position:relative;">
+        <h1 class="additional-info-title" style="margin: 0;">Permit #<span th:text="${permit.permit_number()}"></span></h1>
         <div class="permit-info">
-            <h1>Permit #<span th:text="${permit.permit_number()}"></span></h1>
             <h2 th:text="${permit.property_owner_name}"></h2>
             <h2 th:text="${permit.permit_address()}"></h2>
             <h3>Application Type: <span th:text="${permit.application_type()}">Building Permit</span></h3>
@@ -22,6 +22,12 @@
             <p th:if="${permit.project_name() != null}">Project Name: <span th:text="${permit.project_name()}"></span></p>
             <p th:if="${permit.estimated_cost() != null}">Estimated Cost: <span th:text="${permit.estimated_cost()}"></span></p>
             <p th:if="${permit.processed_date() != null}">Processed Date: <span th:text="${permit.processed_date()}"></span></p>
+            <p th:if="${permit.issue_permit_date() != null}">Permit Issued Date: <span th:text="${permit.issue_permit_date()}"></span></p>
+            <p th:if="${permit.final_date() != null}">Final Date: <span th:text="${permit.final_date()}"></span></p>
+            <p th:if="${permit.contractor() != null}">Contractor: <span th:text="${permit.contractor()}"></span></p>
+            <p th:if="${permit.contractor_name() != null}">Contractor Name: <span th:text="${permit.contractor_name()}"></span></p>
+            <p th:if="${permit.contractor_address() != null}">Contractor Address: <span th:text="${permit.contractor_address()}"></span></p>
+            <p th:if="${permit.contractor_phone_number() != null}">Contractor Phone Number: <span th:text="${permit.contractor_phone_number()}"></span></p>
         </div>
         <iframe
                 width="600px"
@@ -30,6 +36,7 @@
                 th:attr="src='https://www.google.com/maps/embed/v1/place?key=AIzaSyAgCBSIoqZPe72YxIc_Moezmtt6KxBuTu0&q=' + ${googleMapAddress}"
                 allowfullscreen>
         </iframe>
+        <a class="exit-button" style="top:0;" th:href="@{/}">X</a>
     </div>
 </div>
 </body>
